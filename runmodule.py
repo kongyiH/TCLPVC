@@ -133,12 +133,6 @@ class RunModule:
                 for v in range(num_views):
                     all_new_z[v][idx] = zs[v].detach().clone()
 
-            # evaluate
-            if epoch % 5 == 0:
-                print("epoch: " + str(epoch))
-                valid(model, self.device, self.dataset_aligned, num_views, self.cfg['Dataset']['num_sample'], num_classes,
-                      eval_h=False)
-
         # save model
         torch.save({'model': model.state_dict()}, self.model_path + '_cl.pth')
 
@@ -228,7 +222,6 @@ class RunModule:
                                                                                dataset_realigned.aligned_idx,
                                                                                self.device)
                 dataset_realigned = MvDataset(fea_realigned, labels_realigned, realigned_idx, self.device)
-                print("valid on realigned data")
                 valid(model, self.device, dataset_realigned, num_views, self.cfg['Dataset']['num_sample'], num_classes,
                       eval_con=False)
 

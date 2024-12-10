@@ -50,25 +50,6 @@ def load_data(data_name):
         x_list.append(scaler.fit_transform(mat['x2']).astype('float32'))
         y = np.squeeze(mat['y']).astype('int')
 
-    elif data_name in ['Scene-15']:
-        x_all = mat['X'][0]
-        for view in [0, 1]:     # range(x_all.shape[0])
-            x_list.append(x_all[view].astype('float32'))
-        y = np.squeeze(mat['Y'])
-
-    elif data_name in ['Caltech-2V', 'Caltech-3V', 'Caltech-4V', 'Caltech-5V']:
-        scaler = MinMaxScaler()
-        x_list.append(scaler.fit_transform(mat['X1'].astype(np.float32)))
-        x_list.append(scaler.fit_transform(mat['X2'].astype(np.float32)))
-        if data_name in ['Caltech-3V', 'Caltech-4V', 'Caltech-5V']:
-            x_list.append(scaler.fit_transform(mat['X5'].astype(np.float32)))
-        if data_name in ['Caltech-4V', 'Caltech-5V']:
-            x_list.append(scaler.fit_transform(mat['X4'].astype(np.float32)))
-        if data_name in ['Caltech-5V']:
-            x_list.append(scaler.fit_transform(mat['X3'].astype(np.float32)))
-
-        y = np.squeeze(mat['Y']).astype('int')
-
     elif data_name in ['Caltech101-7', 'Caltech101-20', 'Caltech101']:
         scaler = MinMaxScaler()
         x_all = mat['X'][0]
@@ -76,12 +57,6 @@ def load_data(data_name):
             # x_list.append(x_all[view].astype('float32'))
             x_list.append(scaler.fit_transform(x_all[view].astype('float32')))
         y = np.squeeze(mat['Y']).astype('int')
-
-    elif data_name in ['aloideep3v', 'NH_face']:
-        x_all = mat['X'][0]
-        for view in range(x_all.shape[0]):
-            x_list.append(x_all[view])
-        y = np.squeeze(mat['truth']).astype('int')
 
     return x_list, y
 
